@@ -13,8 +13,8 @@ def get_year():
     return int(today.year)
 
 
-CONSUMER_KEY = os.environ['CONSUMER_KEY']
-CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+CONSUMER_KEY = os.environ.get['CONSUMER_KEY']
+CONSUMER_SECRET = os.environ.get['CONSUMER_SECRET']
 
 
 class YahooScrapingTools:
