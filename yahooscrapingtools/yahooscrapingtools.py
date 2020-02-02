@@ -22,6 +22,7 @@ class YahooScrapingTools:
     game = None
     sc = None
     last_league = None
+    logged_in = False
 
     def __init__(self, creds=None):
         if creds:
@@ -40,7 +41,7 @@ class YahooScrapingTools:
     def _load_creds(creds):
         if isinstance(creds, str):
             try:
-                with open('./' + creds, 'rb') as file:
+                with open(os.path.join(os.getcwd(), creds), 'rb') as file:
                     dcreds = json.load(file)
             except FileNotFoundError:
                 dcreds = json.loads(creds)
@@ -74,6 +75,14 @@ class YahooScrapingTools:
         if league:
             util = LeagueUtils(self.sc, league)
             return util.get_scoreboard(week)
+
+    def get_teams(self, league=None):
+        if not league:
+            league = self.last_league
+        if league:
+            util = LeagueUtils(self.sc, league)
+            res = util.get_teams()
+            return {team['team_key']: team['name'] for team in res}
 
 
 if __name__ == '__main__':
