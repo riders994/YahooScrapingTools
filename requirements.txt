@@ -1,0 +1,12 @@
+certifi==2019.11.28
+chardet==3.0.4
+idna==2.8
+objectpath==0.6.1
+pyaml==19.12.0
+pytz==2019.3
+PyYAML==5.3
+rauth==0.7.3
+requests==2.22.0
+urllib3==1.25.8
+yahoo-fantasy-api==1.8.1
+yahoo-oauth==0.1.9

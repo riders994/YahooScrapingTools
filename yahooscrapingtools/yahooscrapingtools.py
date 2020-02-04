@@ -54,9 +54,13 @@ class YahooScrapingTools:
     def _get_session(self):
         return OAuth2(self.consumer_key, self.consumer_secret)
 
-    def login(self):
-        self.sc = self._get_session()
-        self.game = yfa.Game(self.sc, 'nba')
+    def login(self, game=None):
+        if game:
+            self.game = game
+            self.sc = game.sc
+        else:
+            self.sc = self._get_session()
+            self.game = yfa.Game(self.sc, 'nba')
 
     def get_leagues(self, year=None):
         if self.game:
@@ -68,6 +72,8 @@ class YahooScrapingTools:
                 return league
             else:
                 return self.game.league_ids()
+        else:
+            return 'Please login first'
 
     def get_scoreboards(self, league=None, week=None):
         if not league:
