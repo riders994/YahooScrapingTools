@@ -12,9 +12,14 @@ def get_year():
         today = today.replace(year=today.year - 1)
     return int(today.year)
 
+PARAMS = {
+    'consumer_key': os.environ.get('CONSUMER_KEY'),
+    'consumer_secret': os.environ.get('CONSUMER_SECRET'),
+    'token_time': os.environ.get('TOKEN_TIME'),
+    'token_type': os.environ.get('TOKEN_TYPE'),
+    'refresh_token': os.environ.get('REFRESH_TOKEN')
+}
 
-CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
-CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
 
 class YahooScrapingTools:
@@ -27,12 +32,11 @@ class YahooScrapingTools:
     def __init__(self, creds=None):
         if creds:
             try:
-                a, b = self._load_creds(creds)
-                self.consumer_key, self.consumer_secret = a, b
+                self.params = self._load_creds(creds)
             except ValueError:
                 raise
         else:
-            self.consumer_key, self.consumer_secret = CONSUMER_KEY, CONSUMER_SECRET
+            self.params = PARAMS
 
     def _set_last_league(self, lid):
         self.last_league = lid
@@ -49,10 +53,10 @@ class YahooScrapingTools:
             dcreds = creds
         else:
             raise ValueError
-        return dcreds['consumer_key'], dcreds['consumer_secret']
+        return dcreds
 
     def _get_session(self):
-        return OAuth2(self.consumer_key, self.consumer_secret)
+        return OAuth2(None, None, self.params)
 
     def login(self, game=None):
         if game:
