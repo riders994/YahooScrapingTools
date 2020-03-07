@@ -3,7 +3,7 @@ import json
 import datetime
 from yahoo_oauth import OAuth2
 import yahoo_fantasy_api as yfa
-from .leagueutils import LeagueUtils
+from leagueutils import LeagueUtils
 
 
 def get_year():
@@ -11,6 +11,7 @@ def get_year():
     if today.month < 8:
         today = today.replace(year=today.year - 1)
     return int(today.year)
+
 
 PARAMS = {
     'consumer_key': os.environ.get('CONSUMER_KEY'),
@@ -55,7 +56,7 @@ class YahooScrapingTools:
         return dcreds
 
     def _get_session(self):
-        return OAuth2(None, None, self.params)
+        return OAuth2(**self.params)
 
     def login(self, game=None):
         if game:
