@@ -12,6 +12,7 @@ def get_year():
         today = today.replace(year=today.year - 1)
     return int(today.year)
 
+
 PARAMS = {
     'consumer_key': os.environ.get('CONSUMER_KEY'),
     'consumer_secret': os.environ.get('CONSUMER_SECRET'),
@@ -55,7 +56,7 @@ class YahooScrapingTools:
         return dcreds
 
     def _get_session(self):
-        return OAuth2(None, None, self.params)
+        return OAuth2(**self.params)
 
     def login(self, game=None):
         if game:
